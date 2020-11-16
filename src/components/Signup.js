@@ -1,21 +1,20 @@
-import React from "react";
-, {useState} 
+import React, { useState } from "react";
 
 function Signup() {
- 
-  const [signup, setSignup]= useState ({
-     name:'',
-     email:'',
-     password:'',
-     terms:false
-  })
+  const [form, setForm] = useState({
+    name: "as",
+    email: "asd",
+    password: "asd",
+    terms: true,
+  });
+
   return (
     <>
       <h1>Sign up!</h1>
       <p>What is needed, - name, email, terms, password, 2nd pass, terms</p>
       <form>
         <label>
-          Your Name <input name="name" type="text" />
+          Your Name <input name="name" type="text" value="name" />
         </label>
         <br></br>
         <label>
