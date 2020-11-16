@@ -8,12 +8,27 @@ function Signup() {
     password: "",
     terms: false,
   });
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    password: "",
+    terms: false,
+  });
 
   const [disabled, setDisabled] = useState(true);
+
+  const setFormErrors = (name, value) => {
+    yup
+      .reach(schema, name)
+      .validate(value)
+      .then(() => setErrors({ ...errors, [name]: "" }))
+      .catch((err) => setErrors({ ...errors, [name]: err.errors[0] }));
+  };
 
   const change = (event) => {
     const { checked, value, name, type } = event.target;
     const valueToUse = type === "checkbox" ? checked : value;
+    setFormErrors(name, valueToUse);
     setForm({ ...form, [name]: valueToUse });
   };
   const schema = yup.object().shape({
@@ -21,7 +36,7 @@ function Signup() {
     email: yup.string().required("Email is required"),
     password: yup
       .string()
-      .required("Password is requred")
+      .required("Password is required")
       .min(6, "Password is required"),
     terms: yup.boolean().oneOf([true], "You must give away your data"),
   });
