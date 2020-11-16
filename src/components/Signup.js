@@ -46,13 +46,6 @@ function Signup() {
 
   return (
     <>
-      <div style={{ color: "red" }}>
-        <div>{errors.name}</div>
-        <div>{errors.email}</div>
-        <div>{errors.password}</div>
-        <div>{errors.terms}</div>
-      </div>
-
       <h1>Sign up!</h1>
       <p>What is needed, - name, email, terms, password, 2nd pass, terms</p>
       <form>
@@ -65,6 +58,7 @@ function Signup() {
             placeholder="Your Name"
           />
         </label>
+        <div style={{ color: "red" }}>{errors.name}</div>
         <br></br>
         <label>
           Your Email{" "}
@@ -75,6 +69,7 @@ function Signup() {
             placeholder="Your Email"
           />
         </label>
+        <div style={{ color: "red" }}>{errors.email}</div>
         <br></br>
         <label>
           Password{" "}
@@ -85,11 +80,14 @@ function Signup() {
             placeholder="Your Password"
           />
         </label>
+
+        <div style={{ color: "red" }}>{errors.password}</div>
         <br></br>
         <label>
           Terms and Conditions
           <input onChange={change} name="terms" type="checkbox" />
         </label>
+        <div style={{ color: "red" }}>{errors.terms}</div>
         <br></br>
         <button disabled={disabled} type="submit">
           Submit
