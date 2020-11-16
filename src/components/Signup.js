@@ -1,6 +1,14 @@
 import React from "react";
+, {useState} 
 
 function Signup() {
+ 
+  const [signup, setSignup]= useState ({
+     name:'',
+     email:'',
+     password:'',
+     terms:false
+  })
   return (
     <>
       <h1>Sign up!</h1>
