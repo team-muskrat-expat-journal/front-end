@@ -2,12 +2,11 @@ import React, { useState } from "react";
 
 function Signup() {
   const [form, setForm] = useState({
-    name: "as",
-    email: "asd",
-    password: "asd",
-    terms: true,
+    name: "",
+    email: "",
+    password: "",
+    terms: false,
   });
-
   return (
     <>
       <h1>Sign up!</h1>
