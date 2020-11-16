@@ -32,12 +32,12 @@ function Signup() {
     setForm({ ...form, [name]: valueToUse });
   };
   const schema = yup.object().shape({
-    name: yup.string().required("Name is required"),
+    name: yup.string("name").required("Name is required"),
     email: yup.string().required("Email is required"),
     password: yup
       .string()
       .required("Password is required")
-      .min(6, "Password is required"),
+      .min(6, "Password is required and must be at least 6 characters long"),
     terms: yup.boolean().oneOf([true], "You must give away your data"),
   });
   useEffect(() => {
@@ -46,6 +46,13 @@ function Signup() {
 
   return (
     <>
+      <div style={{ color: "red" }}>
+        <div>{errors.name}</div>
+        <div>{errors.email}</div>
+        <div>{errors.password}</div>
+        <div>{errors.terms}</div>
+      </div>
+
       <h1>Sign up!</h1>
       <p>What is needed, - name, email, terms, password, 2nd pass, terms</p>
       <form>
