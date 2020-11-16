@@ -4,8 +4,10 @@ import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 
 const initialFormValues = {
+  rating: "",
   name: "",
   date: "",
+  location: "",
   image: "",
   person: [],
   place: [],
@@ -47,8 +49,11 @@ export default function PostForm(props) {
   const submitForm = (evt) => {
     const newPost = {
       id: uuidv4().trim(),
+      rating: formValues.rating,
       name: formValues.name.trim(),
       date: formValues.date.trim(),
+      location: formValues.location.trim(),
+      image: formValues.image.trim(),
       person: [{ ...person }],
       place: [{ ...place }],
       thing: [{ ...thing }],
@@ -75,7 +80,41 @@ export default function PostForm(props) {
         </label>
         <label>
           Date/Time:&nbsp;
-          <input type="text" value={values.date} onChange={onChange} />
+          <input
+            type="text"
+            value={values.date}
+            name="date"
+            onChange={onChange}
+          />
+        </label>
+        <label>
+          Location:&nbsp;
+          <input
+            type="text"
+            value={values.location}
+            name="location"
+            onChange={onChange}
+          />
+        </label>
+        <label>
+          Rating:&nbsp;
+          <select name="rating" value={values.rating} onChange={onChange}>
+            <option value="">---Rating---</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </label>
+        <label>
+          Image:&nbsp;
+          <input
+            type="text"
+            value={values.image}
+            name="image"
+            onChange={onChange}
+          />
         </label>
         {person.map((ele) => {
           <div className="person-card" key={ele.id}>
@@ -84,13 +123,20 @@ export default function PostForm(props) {
             </Link>
           </div>;
         })}
-
-        <Link clasName="link" to="/place">
-          Add a Place
-        </Link>
-        <Link className="link" to="/thing">
-          Add a Thing
-        </Link>
+        {place.map((elm) => {
+          <div className="place-card" key={elm.id}>
+            <Link clasName="link" to="/place">
+              Add a Place
+            </Link>
+          </div>;
+        })}
+        {thing.map((elm) => {
+          <div className="thing-card" key={elm.id}>
+            <Link className="link" to="/thing">
+              Add a Thing
+            </Link>
+          </div>;
+        })}
         <button disabled={disabled}>submit</button>
       </form>
     </div>
