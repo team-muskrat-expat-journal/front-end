@@ -6,7 +6,7 @@ export const axiosWithAuth = () => {
     return axios.create({
         baseURL: 'https://skrat-expat.herokuapp.com/',
         headers: {
-            authorization: token
+            Authorization: token
         }
     })
 }
