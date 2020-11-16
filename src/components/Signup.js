@@ -8,21 +8,36 @@ function Signup() {
     password: "",
     terms: false,
   });
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    password: "",
+    terms: false,
+  });
 
   const [disabled, setDisabled] = useState(true);
+
+  const setFormErrors = (name, value) => {
+    yup
+      .reach(schema, name)
+      .validate(value)
+      .then(() => setErrors({ ...errors, [name]: "" }))
+      .catch((err) => setErrors({ ...errors, [name]: err.errors[0] }));
+  };
 
   const change = (event) => {
     const { checked, value, name, type } = event.target;
     const valueToUse = type === "checkbox" ? checked : value;
+    setFormErrors(name, valueToUse);
     setForm({ ...form, [name]: valueToUse });
   };
   const schema = yup.object().shape({
-    name: yup.string().required("Name is required"),
+    name: yup.string("name").required("Name is required"),
     email: yup.string().required("Email is required"),
     password: yup
       .string()
-      .required("Password is requred")
-      .min(6, "Password is required"),
+      .required("Password is required")
+      .min(6, "Password is required and must be at least 6 characters long"),
     terms: yup.boolean().oneOf([true], "You must give away your data"),
   });
   useEffect(() => {
@@ -43,6 +58,7 @@ function Signup() {
             placeholder="Your Name"
           />
         </label>
+        <div style={{ color: "red" }}>{errors.name}</div>
         <br></br>
         <label>
           Your Email{" "}
@@ -53,6 +69,7 @@ function Signup() {
             placeholder="Your Email"
           />
         </label>
+        <div style={{ color: "red" }}>{errors.email}</div>
         <br></br>
         <label>
           Password{" "}
@@ -63,11 +80,14 @@ function Signup() {
             placeholder="Your Password"
           />
         </label>
+
+        <div style={{ color: "red" }}>{errors.password}</div>
         <br></br>
         <label>
           Terms and Conditions
           <input onChange={change} name="terms" type="checkbox" />
         </label>
+        <div style={{ color: "red" }}>{errors.terms}</div>
         <br></br>
         <button disabled={disabled} type="submit">
           Submit
