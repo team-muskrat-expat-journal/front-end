@@ -52,7 +52,7 @@ function Signup() {
       .post("https://reqres.in/api/users", newUser)
       .then((res) => {
         setForm(form);
-        debugger;
+        setForm({ name: "", email: "", password: "", terms: false });
       })
       .catch((err) => {
         debugger;
