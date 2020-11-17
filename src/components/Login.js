@@ -1,28 +1,24 @@
-//Things needed... name: [text]
-// username (aka email address): [text]
-// password: [text]
-
-// new user?
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { useHistory } from 'react-router-dom';
+import axiosWithAuth from "../utils/axiosWithAuth";
 import * as yup from "yup";
 
 function Login() {
   const [form, setForm] = useState({
-    name: "",
     email: "",
     password: "",
   });
 
   const [errors, setErrors] = useState({
-    name: "",
     email: "",
     password: "",
   });
+
   const [disabled, setDisabled] = useState(true);
 
+  const history = useHistory();
+
   const schema = yup.object().shape({
-    name: yup.string().required("Name is required"),
     email: yup.string().email().required("Email is required"),
     password: yup
       .string()
@@ -45,24 +41,26 @@ function Login() {
     yup
       .reach(schema, name)
       .validate(value)
-      .then(() => ({ ...errors, [name]: "" }))
+      .then(() => setErrors({ ...errors, [name]: "" }))
       .catch((err) => setErrors({ ...errors, [name]: err.errors[0] }));
   };
 
   const submit = (e) => {
     e.preventDefault();
     const newUser = {
-      user: form.name.trim(),
       email: form.email.trim(),
       password: form.password.trim(),
     };
-    axios
-      .post("https://reqres.in/api/users", newUser)
+    axiosWithAuth()
+      .post("api/auth/login", newUser)
       .then((res) => {
-        setForm({ name: "", email: "", password: "" });
+        localStorage.setItem('token', res.data.token);
+        localStorage.setIten('user_id', res.data.user.id);
+        history.push('/home');
+        console.log('Login res: ', res);
       })
       .catch((err) => {
-        debugger;
+        console.log('Login error: ', err);
       });
   };
   return (
@@ -70,22 +68,10 @@ function Login() {
       <h1>Hello from login</h1>
       <form onSubmit={submit}>
         <label>
-          Username
-          <input
-            onChange={change}
-            // value={form.name}
-            name="name"
-            type="text"
-            placeholder="Your Username"
-          ></input>
-          <div style={{ color: "red" }}>{errors.name}</div>
-        </label>
-        <br></br>
-        <label>
           Email
           <input
             onChange={change}
-            //value={form.email}
+            value={form.email}
             name="email"
             type="text"
             placeholder="Your Username"
@@ -97,7 +83,7 @@ function Login() {
           Password
           <input
             onChange={change}
-            //  value={form.password}
+             value={form.password}
             name="password"
             type="password"
             placeholder="Your Username"
