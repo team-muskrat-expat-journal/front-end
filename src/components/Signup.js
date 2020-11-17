@@ -18,7 +18,7 @@ function Signup() {
     terms: false,
   });
 
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(true);
 
   const history = useHistory();
 
@@ -54,7 +54,7 @@ function Signup() {
       .string()
       .required("Password is required")
       .min(6, "Password is required and must be at least 6 characters long"),
-    terms: yup.boolean().oneOf([false], "You must give away your data"),
+    terms: yup.boolean().oneOf([true], "You must give away your data"), //This is where the issue is, (check with Brian)
   });
 
   useEffect(() => {
