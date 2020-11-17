@@ -73,7 +73,7 @@ function Signup() {
       .post("api/auth/register", newUser)
       .then((res) => {
         localStorage.setItem("token", res.data.payload);
-        history.pushState("/");
+        history.push("/");
         console.log("Login res: ", res);
       })
       .catch((err) => {
