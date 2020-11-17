@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import * as yup from "yup";
 
 function Signup() {
@@ -44,13 +45,27 @@ function Signup() {
     schema.isValid(form).then((valid) => setDisabled(!valid));
   }, [form]);
 
+  const submit = (e) => {
+    e.preventDefault();
+    const newUser = { name: "", email: "", password: "", terms: false };
+    axios
+      .post("https://reqres.in/api/users", newUser)
+      .then((res) => {
+        setForm(form);
+        debugger;
+      })
+      .catch((err) => {
+        debugger;
+      });
+  };
+
   return (
     <>
       <h1>Sign up!</h1>
-      <p>What is needed, - name, email, terms, password, 2nd pass, terms</p>
-      <form>
+
+      <form onSubmit={submit}>
         <label>
-          Your Name{" "}
+          Your Name
           <input
             onChange={change}
             name="name"
@@ -61,7 +76,7 @@ function Signup() {
         <div style={{ color: "red" }}>{errors.name}</div>
         <br></br>
         <label>
-          Your Email{" "}
+          Your Email
           <input
             onChange={change}
             name="email"
@@ -72,7 +87,7 @@ function Signup() {
         <div style={{ color: "red" }}>{errors.email}</div>
         <br></br>
         <label>
-          Password{" "}
+          Password
           <input
             onChange={change}
             name="password"
