@@ -5,6 +5,7 @@
 // new user?
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./Style/signUpStyles.css";
 import * as yup from "yup";
 
 function Login() {
@@ -68,45 +69,55 @@ function Login() {
   return (
     <div>
       <h1>Hello from login</h1>
-      <form onSubmit={submit}>
-        <label>
-          Username
-          <input
-            onChange={change}
-            // value={form.name}
-            name="name"
-            type="text"
-            placeholder="Your Username"
-          ></input>
-          <div style={{ color: "red" }}>{errors.name}</div>
-        </label>
+      <div className="signup">
+        <form onSubmit={submit}>
+          <label>
+            Username
+            <input
+              className="form-control"
+              onChange={change}
+              value={form.name}
+              name="name"
+              type="text"
+              placeholder="Your Username"
+            ></input>
+            <div style={{ color: "red" }}>{errors.name}</div>
+          </label>
+          <br></br>
+          <label>
+            Email
+            <input
+              className="form-control"
+              onChange={change}
+              value={form.email}
+              name="email"
+              type="text"
+              placeholder="Your Username"
+            ></input>
+            <div style={{ color: "red" }}>{errors.email}</div>
+          </label>
+          <br></br>
+          <label>
+            Password
+            <input
+              className="form-control"
+              onChange={change}
+              value={form.password}
+              name="password"
+              type="password"
+              placeholder="Your Username"
+            ></input>
+            <div style={{ color: "red" }}>{errors.password}</div>
+          </label>
+          <br></br>
+          <button className="form-control" disabled={disabled}>
+            Submit
+          </button>
+          <br></br>
+          <a href="#">New User?</a>
+        </form>
         <br></br>
-        <label>
-          Email
-          <input
-            onChange={change}
-            //value={form.email}
-            name="email"
-            type="text"
-            placeholder="Your Username"
-          ></input>
-          <div style={{ color: "red" }}>{errors.email}</div>
-        </label>
-        <br></br>
-        <label>
-          Password
-          <input
-            onChange={change}
-            //  value={form.password}
-            name="password"
-            type="password"
-            placeholder="Your Username"
-          ></input>
-          <div style={{ color: "red" }}>{errors.password}</div>
-        </label>
-        <button disabled={disabled}>Submit</button>
-      </form>
-      <a href="#">New User?</a>
+      </div>
     </div>
   );
 }
