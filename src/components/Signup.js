@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { useHistory } from "react-router-dom";
+import axiosWithAuth from "../utils/axiosWithAuth";
 import * as yup from "yup";
 
 function Signup() {
@@ -9,6 +10,7 @@ function Signup() {
     password: "",
     terms: false,
   });
+
   const [errors, setErrors] = useState({
     name: "",
     email: "",
@@ -16,46 +18,66 @@ function Signup() {
     terms: false,
   });
 
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(false);
+
+  const history = useHistory();
 
   const setFormErrors = (name, value) => {
     yup
       .reach(schema, name)
       .validate(value)
-      .then(() => setErrors({ ...errors, [name]: "" }))
-      .catch((err) => setErrors({ ...errors, [name]: err.errors[0] }));
+      .then(() => {
+        setErrors({ 
+          ...errors, 
+          [name]: "",
+        });
+      })
+      .catch((err) => {
+        setErrors({ 
+          ...errors, 
+          [name]: err.errors[0], 
+        });
+      });
   };
 
   const change = (event) => {
     const { checked, value, name, type } = event.target;
+    setFormErrors(name, value);
     const valueToUse = type === "checkbox" ? checked : value;
-    setFormErrors(name, valueToUse);
     setForm({ ...form, [name]: valueToUse });
   };
+
   const schema = yup.object().shape({
-    name: yup.string("name").required("Name is required"),
-    email: yup.string().required("Email is required"),
+    name: yup.string().required("Name is required"),
+    email: yup.string().email().required("Email is required"),
     password: yup
       .string()
       .required("Password is required")
       .min(6, "Password is required and must be at least 6 characters long"),
     terms: yup.boolean().oneOf([true], "You must give away your data"),
   });
+
   useEffect(() => {
     schema.isValid(form).then((valid) => setDisabled(!valid));
   }, [form]);
 
   const submit = (e) => {
     e.preventDefault();
-    const newUser = { name: "", email: "", password: "", terms: false };
-    axios
-      .post("https://reqres.in/api/users", newUser)
+    const newUser = {
+      name: form.name.trim(),
+      email: form.email.trim(),
+      password: form.password.trim(),
+      terms: form.terms,
+    };
+    axiosWithAuth()
+      .post("api/auth/register", newUser)
       .then((res) => {
-        setForm(form);
-        setForm({ name: "", email: "", password: "", terms: false });
+        localStorage.setItem("token", res.data.payload);
+        history.pushState("/");
+        console.log("Login res: ", res);
       })
       .catch((err) => {
-        debugger;
+        console.log(err);
       });
   };
 
@@ -67,9 +89,10 @@ function Signup() {
         <label>
           Your Name
           <input
-            onChange={change}
-            name="name"
             type="text"
+            name="name"
+            value={form.name}
+            onChange={change}
             placeholder="Your Name"
           />
         </label>
@@ -81,6 +104,7 @@ function Signup() {
             onChange={change}
             name="email"
             type="email"
+            value={form.email}
             placeholder="Your Email"
           />
         </label>
@@ -92,6 +116,7 @@ function Signup() {
             onChange={change}
             name="password"
             type="password"
+            value={form.password}
             placeholder="Your Password"
           />
         </label>
@@ -100,11 +125,17 @@ function Signup() {
         <br></br>
         <label>
           Terms and Conditions
-          <input onChange={change} name="terms" type="checkbox" />
+          <input
+            onChange={change}
+            name="terms"
+            type="checkbox"
+            value={form.terms}
+            checked={form.terms}
+          />
         </label>
         <div style={{ color: "red" }}>{errors.terms}</div>
         <br></br>
-        <button disabled={disabled} type="submit">
+        <button disabled={disabled} onSubmit={submit} type="submit">
           Submit
         </button>
       </form>
