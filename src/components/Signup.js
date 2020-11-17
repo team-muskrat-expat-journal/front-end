@@ -27,15 +27,15 @@ function Signup() {
       .reach(schema, name)
       .validate(value)
       .then(() => {
-        setErrors({ 
-          ...errors, 
+        setErrors({
+          ...errors,
           [name]: "",
         });
       })
       .catch((err) => {
-        setErrors({ 
-          ...errors, 
-          [name]: err.errors[0], 
+        setErrors({
+          ...errors,
+          [name]: err.errors[0],
         });
       });
   };
@@ -54,7 +54,7 @@ function Signup() {
       .string()
       .required("Password is required")
       .min(6, "Password is required and must be at least 6 characters long"),
-    terms: yup.boolean().oneOf([true], "You must give away your data"),
+    terms: yup.boolean().oneOf([false], "You must give away your data"),
   });
 
   useEffect(() => {
