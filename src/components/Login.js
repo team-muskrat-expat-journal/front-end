@@ -4,10 +4,17 @@
 
 // new user?
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import * as yup from "yup";
 
 function Login() {
   const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const [errors, setErrors] = useState({
     name: "",
     email: "",
     password: "",
@@ -31,12 +38,37 @@ function Login() {
     const { value, name } = e.target;
     const valueToUse = value;
     setForm({ ...form, [name]: valueToUse });
+    setFormErrors(name, valueToUse);
   };
 
+  const setFormErrors = (name, value) => {
+    yup
+      .reach(schema, name)
+      .validate(value)
+      .then(() => ({ ...errors, [name]: "" }))
+      .catch((err) => setErrors({ ...errors, [name]: err.errors[0] }));
+  };
+
+  const submit = (e) => {
+    e.preventDefault();
+    const newUser = {
+      user: form.name.trim(),
+      email: form.email.trim(),
+      password: form.password.trim(),
+    };
+    axios
+      .post("https://reqres.in/api/users", newUser)
+      .then((res) => {
+        setForm({ name: "", email: "", password: "" });
+      })
+      .catch((err) => {
+        debugger;
+      });
+  };
   return (
     <div>
       <h1>Hello from login</h1>
-      <form>
+      <form onSubmit={submit}>
         <label>
           Username
           <input
@@ -46,6 +78,7 @@ function Login() {
             type="text"
             placeholder="Your Username"
           ></input>
+          <div style={{ color: "red" }}>{errors.name}</div>
         </label>
         <br></br>
         <label>
@@ -57,6 +90,7 @@ function Login() {
             type="text"
             placeholder="Your Username"
           ></input>
+          <div style={{ color: "red" }}>{errors.email}</div>
         </label>
         <br></br>
         <label>
@@ -68,6 +102,7 @@ function Login() {
             type="password"
             placeholder="Your Username"
           ></input>
+          <div style={{ color: "red" }}>{errors.password}</div>
         </label>
         <button disabled={disabled}>Submit</button>
       </form>
