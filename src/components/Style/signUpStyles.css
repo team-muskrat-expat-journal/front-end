@@ -1,0 +1,24 @@
+body {
+  background-color: wheat;
+}
+.signup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 30%;
+  background-color: rgba(51, 15, 10, 0.25);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  width: 30%;
+  border-radius: 10%;
+  padding: 5%;
+}
+.form-control {
+  border: 2px solid #e0e1dd;
+  border-radius: 4px;
+  display: black;
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+}
+button:hover {
+}

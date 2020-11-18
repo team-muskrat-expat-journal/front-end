@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@200;400&display=swap");
+
+body {
+  background-image: url("./images/background1.jpg");
+}
+
+button {
+  background-color: #415a77;
+  outline: none;
+  border: 2px solid #394f49;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 1;
+  margin-bottom: 5%;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin-left: 30%; */
+  background-color: rgba(51, 15, 10, 0.25);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
