@@ -12,12 +12,11 @@ export default function PersonForm(props) {
     notes: "",
   });
 
-  const history = useHistory();
-
   const onChange = (evt) => {
     const { name, value } = evt.target;
     setPerson({ ...person, [name]: value });
   };
+  const history = useHistory();
 
   const onSubmit = (evt) => {
     evt.preventDefault();
@@ -29,6 +28,7 @@ export default function PersonForm(props) {
       notes: person.notes.trim(),
     };
     setPerson({ ...person, newPerson });
+    history(-1);
   };
 
   return (
@@ -82,6 +82,7 @@ export default function PersonForm(props) {
             onChange={onChange}
           />
         </label>
+        <button onSubmit={onSubmit}>Submit</button>
       </form>
     </div>
   );
