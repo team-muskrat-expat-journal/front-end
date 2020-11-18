@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from 'react-router-dom';
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -21,6 +22,8 @@ function Signup() {
   });
 
   const [disabled, setDisabled] = useState(true);
+
+  const history = useHistory();
 
   const setFormErrors = (name, value) => {
     yup
@@ -73,6 +76,7 @@ function Signup() {
       .post("https://skrat-expat.herokuapp.com/api/auth/register", newUser)
       .then((res) => {
         console.log("Login res: ", res);
+        history.push('/Login');
       })
       .catch((err) => {
         console.log(err);
