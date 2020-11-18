@@ -79,7 +79,6 @@ function Signup() {
 
   return (
     <>
-      <h1>Sign up!</h1>
       <div className="signup">
         <form onSubmit={submit}>
           <label>
