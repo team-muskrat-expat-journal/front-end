@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Route, Link, Switch } from "react-router-dom";
+import React from "react";
 import Signup from "./components/Signup.js";
 import PostForm from "./components/PostForm";
 import Login from "./components/Login.js";
