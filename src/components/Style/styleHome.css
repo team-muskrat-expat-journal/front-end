@@ -8,7 +8,7 @@ body {
 button {
   background-color: #415a77;
   outline: none;
-  border: 2px solid #394f49;
+  border: 2px solid #e0e1dd;
   border-radius: 20px;
   color: #fff;
   font-size: 12px;
@@ -16,6 +16,7 @@ button {
   cursor: pointer;
   opacity: 1;
   margin-bottom: 5%;
+  width: 100px;
 }
 
 a {
@@ -35,6 +36,7 @@ nav {
 }
 .links {
   width: 20%;
+  height: 90px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -46,8 +48,8 @@ nav {
   padding: 10%;
   background-color: transparent;
   outline: none;
-  border: 2px solid #394f49;
-  border-radius: 1px;
+  border: 2px solid #e0e1dd;
+  border-radius: 3px;
   color: #fff;
   font-size: 12px;
   font-weight: bold;

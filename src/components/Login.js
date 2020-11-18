@@ -66,6 +66,8 @@ function Login() {
   };
   return (
     <div>
+      <h2 className="login">Login</h2>
+      <br></br>
       <div className="signup">
         <form onSubmit={submit}>
           <label>
