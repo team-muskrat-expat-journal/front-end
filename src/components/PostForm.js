@@ -1,30 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import PersonForm from "./PersonForm";
+import axios from "axios";
 import axiosWithAuth from "../utils/axiosWithAuth";
 import * as yup from "yup";
 
+const initalErrors = {
+  name: "",
+  date: "",
+  imageURL: "",
+  location: "",
+};
+
+const initialFormValues = {
+  name: "",
+  date: "",
+  location: "",
+  imageURL: "",
+  notes: "",
+  rating: "",
+  role: "",
+};
+
+const initialPostValues = [];
+const initialDisabled = true;
+
 export default function PostForm(props) {
-  const [post, setPost] = useState({
-    name: "",
-    date: "",
-    location: "",
-    imageURL: "",
-    notes: "",
-    rating: "",
-    persons: [{ name: "", contact: "", location: "", imageURL: "", notes: "" }],
-    places: [{ name: "", contact: "", location: "", imageURL: "", notes: "" }],
-    things: [{ name: "", contact: "", location: "", imageURL: "", notes: "" }],
-  });
-
-  const [errors, setErrors] = useState({
-    name: "",
-    date: "",
-    imageURL: "",
-    location: "",
-  });
-
-  const [disabled, setDisabled] = useState(true);
+  const [post, setPost] = useState(initialPostValues);
+  const [errors, setErrors] = useState(initalErrors);
+  const [formValues, setFormValues] = useState(initialFormValues);
+  const [disabled, setDisabled] = useState(initialDisabled);
 
   const history = useHistory();
 
@@ -33,6 +38,7 @@ export default function PostForm(props) {
     date: yup.string().required("Must Have A Date For The Trip"),
     imageURL: yup.string().required("A Phot From he Trip Is Required"),
     location: yup.string().required("Must Have Location Of Trip"),
+    role: yup.string().oneOf(["person", "place", "thing"], "role is required"),
   });
 
   const formErrors = (name, value) => {
@@ -55,18 +61,19 @@ export default function PostForm(props) {
 
   const onChange = (evt) => {
     const { name, value } = evt.target;
-    setPost({ ...post, [name]: value });
+    setPost({ ...formValues, [name]: value });
   };
 
   const onSubmit = (evt) => {
     evt.preventDefault();
     const newPost = {
-      name: post.name.trim(),
-      date: post.date.trim(),
-      location: post.location.trim(),
-      imageURL: post.imageURL.trim(),
-      notes: post.notes.trim(),
-      rating: post.rating.trim(),
+      role: formValues.role.trim(),
+      name: formValues.name.trim(),
+      date: formValues.date.trim(),
+      location: formValues.location.trim(),
+      imageURL: formValues.imageURL.trim(),
+      notes: formValues.notes.trim(),
+      rating: formValues.rating.trim(),
     };
     axiosWithAuth()
       .post("api/post", newPost)
@@ -81,8 +88,9 @@ export default function PostForm(props) {
   };
 
   useEffect(() => {
-    formSchema.isValid(post).then((valid) => setDisabled(!valid));
-  }, [post]);
+    formSchema.isValid(formValues).then((valid) => setDisabled(!valid));
+  }, [formValues]);
+
   return (
     <div className="post-form container">
       <header>
@@ -94,6 +102,15 @@ export default function PostForm(props) {
         </div>
       </header>
       <form className="form container" onSubmit={onSubmit}>
+        <label>
+          This is a:
+          <select name="role" value={post.role} onChange={onChange}>
+            <option value="">--- Select role</option>
+            <option value="Person">Person</option>
+            <option value="Place">Place</option>
+            <option value="Thing">Thing</option>
+          </select>
+        </label>
         <label>
           Name:&nbsp;
           <input
@@ -141,26 +158,15 @@ export default function PostForm(props) {
         </label>
         <label>
           Rating:&nbsp;
-          <input
-            type="text"
-            name="rating"
-            value={post.rating}
-            onChange={onChange}
-          />
+          <select name="rating" value={post.rating} onChange={onChange}>
+            <option value="">---Select---</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
         </label>
-        <label>
-          Notes:&nbsp;
-          <input
-            type="text"
-            name="notes"
-            value={post.notes}
-            onChange={onChange}
-          />
-        </label>
-        <div></div>
-        <Link to={`/persons`}>Add a Person</Link>
-        <Link to={`/place`}>Add a Place</Link>
-        <Link to={`/thing`}>Add a Thing</Link>
         <button disabled={disabled} onSubmit={onSubmit}>
           Submit Post
         </button>
