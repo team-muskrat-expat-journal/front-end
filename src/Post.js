@@ -1,4 +1,4 @@
-import Reacxt from 'react'
+import React from 'react'
 import {useParams, useRouteMatch, Route} from 'react-router-dom'
 import PostDetails from './PostDetails'
 
