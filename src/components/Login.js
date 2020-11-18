@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import "./Style/signUpStyles.css";
 
 import { useHistory } from 'react-router-dom';
-import axiosWithAuth from "../utils/axiosWithAuth";
+import axios from "axios";
 
 import * as yup from "yup";
 
@@ -56,11 +56,10 @@ function Login() {
       email: form.email.trim(),
       password: form.password.trim(),
     };
-    axiosWithAuth()
-      .post("api/auth/login", newUser)
+    axios
+      .post("https://skrat-expat.herokuapp.com/api/auth/login", newUser)
       .then((res) => {
         localStorage.setItem('token', res.data.token);
-        localStorage.setIten('user_id', res.data.user.id);
         history.push('/home');
         console.log('Login res: ', res);
       })
@@ -73,19 +72,6 @@ function Login() {
       <h1>Hello from login</h1>
       <div className="signup">
         <form onSubmit={submit}>
-          <label>
-            Username
-            <input
-              className="form-control"
-              onChange={change}
-              value={form.name}
-              name="name"
-              type="text"
-              placeholder="Your Username"
-            ></input>
-            <div style={{ color: "red" }}>{errors.name}</div>
-          </label>
-          <br></br>
           <label>
             Email
             <input
