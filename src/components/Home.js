@@ -4,15 +4,28 @@ import "./Style/styleHome.css";
 function Home() {
   return (
     <>
+      <nav>
+        <div className="logo">
+          <h1>Team 'Skrat Expat Journal</h1>
+        </div>
+        <div className="links">
+          <Link to="/Login">
+            <button className="navButton" type="button">
+              Login
+            </button>
+          </Link>
+          <Link to="/Signup">
+            <button className="navButton" type="button">
+              Sign up!
+            </button>
+          </Link>
+        </div>
+      </nav>
       <div className="main">
-        <h1>Team 'Skrat Expat Journal</h1>
+        <br></br>
       </div>
-      <button type="button">
-        <Link to="/Login">Login</Link>
-      </button>
-      <button type="button">
-        <Link to="/Signup">Sign up!</Link>
-      </button>
+
+      <h1>Don't be a tourist, be a traveler</h1>
     </>
   );
 }
