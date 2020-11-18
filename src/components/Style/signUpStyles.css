@@ -1,8 +1,5 @@
-body {
-  background-color: wheat;
-}
 .signup {
-  margin-top: 10%;
+  margin-top: 1%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,6 +11,9 @@ body {
   padding: 5%;
 }
 .form-control {
+  /* display: flex;
+  align-content: center;
+  justify-content: center; */
   border: 2px solid #e0e1dd;
   border-radius: 4px;
   display: black;
@@ -21,6 +21,19 @@ body {
   padding: 10px;
   font-size: 14px;
 }
+
 button:hover {
   opacity: 0.5;
+}
+h1 {
+  /* border-radius: 1px solid red; */
+  /* width: 50%; */
+  margin-top: -100px;
+  font-size: 90px;
+  margin-left: 40%;
+  color: #1b263b;
+  text-shadow: 2px 2px #e0e1dd;
+}
+.login {
+  margin-top: 90px;
 }

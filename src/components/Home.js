@@ -6,7 +6,7 @@ function Home() {
     <>
       <nav>
         <div className="logo">
-          <h1>Team 'Skrat Expat Journal</h1>
+          <h2>Team 'Skrat Expat Journal</h2>
         </div>
         <div className="links">
           <Link to="/Login">
@@ -25,7 +25,7 @@ function Home() {
         <br></br>
       </div>
 
-      <h1>Don't be a tourist, be a traveler</h1>
+      <h1>Personalizing your memories.</h1>
     </>
   );
 }

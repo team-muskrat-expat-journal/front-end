@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
 import "./Style/signUpStyles.css";
 import * as yup from "yup";
 
@@ -52,7 +54,7 @@ function Signup() {
       .string()
       .required("Password is required")
       .min(6, "Password is required and must be at least 6 characters long"),
-    terms: yup.boolean().oneOf([true], "You must give away your data"), //This is where the issue is, (check with Brian)
+    terms: yup.boolean().oneOf([false], "You must give away your data"), //This is where the issue is, (check with Brian)
   });
 
   useEffect(() => {
@@ -79,6 +81,7 @@ function Signup() {
 
   return (
     <>
+      <h2 className="login">Signup</h2>
       <div className="signup">
         <form onSubmit={submit}>
           <label>
@@ -142,6 +145,9 @@ function Signup() {
           >
             Submit!
           </button>
+
+          <br></br>
+          <Link to="/Login">Already a user?</Link>
         </form>
       </div>
     </>
