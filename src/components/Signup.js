@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import axiosWithAuth from "../utils/axiosWithAuth";
+import axios from 'axios';
 import "./Style/signUpStyles.css";
 import * as yup from "yup";
 
@@ -20,8 +19,6 @@ function Signup() {
   });
 
   const [disabled, setDisabled] = useState(true);
-
-  const history = useHistory();
 
   const setFormErrors = (name, value) => {
     yup
@@ -70,11 +67,9 @@ function Signup() {
       password: form.password.trim(),
       terms: form.terms,
     };
-    axiosWithAuth()
-      .post("api/auth/register", newUser)
+    axios
+      .post("https://skrat-expat.herokuapp.com/api/auth/register", newUser)
       .then((res) => {
-        localStorage.setItem("token", res.data.payload);
-        history.push("/");
         console.log("Login res: ", res);
       })
       .catch((err) => {
