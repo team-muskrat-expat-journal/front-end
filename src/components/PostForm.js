@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
-import PersonForm from "./PersonForm";
-import axios from "axios";
 import axiosWithAuth from "../utils/axiosWithAuth";
 import * as yup from "yup";
 

@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 
-import Post from './components/Post';
 import Home from "./components/Home.js";
 import Login from "./components/Login.js";
 import Signup from "./components/Signup.js";
+import PostForm from './components/PostForm';
 import Dashboard from './components/Dashboard';
 import { fetchPosts } from './actions/PostsAction';
 import { PrivateRoute } from './components/PrivateRoute';
@@ -26,8 +26,8 @@ const App = () => {
           <PrivateRoute exact path='/dashboard'>
             <Dashboard onDashboard={setOnDashboard} />
           </PrivateRoute>
-          <PrivateRoute exact path='/post'>
-            <Post onPost={setOnPost} />
+          <PrivateRoute exact path='/postform'>
+            <PostForm onPost={setOnPost} />
           </PrivateRoute>
         </Switch>
       </div>

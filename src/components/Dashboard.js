@@ -23,7 +23,7 @@ const Dashboard = (props) => {
         <p>Nothing to see here... <br />Just a man enjoying some 'skrat... <br />Move along...</p>
       )}
 
-      <Link to='/post'>
+      <Link to='/postform'>
         Create New Memory
       </Link>
     </div>
