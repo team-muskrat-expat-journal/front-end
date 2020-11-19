@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from 'react-router-dom';
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -22,6 +23,8 @@ function Signup() {
 
   const [disabled, setDisabled] = useState(true);
 
+  const history = useHistory();
+
   const setFormErrors = (name, value) => {
     yup
       .reach(schema, name)
@@ -42,8 +45,8 @@ function Signup() {
 
   const change = (event) => {
     const { checked, value, name, type } = event.target;
-    setFormErrors(name, value);
     const valueToUse = type === "checkbox" ? checked : value;
+    setFormErrors(name, value);
     setForm({ ...form, [name]: valueToUse });
   };
 
@@ -73,6 +76,7 @@ function Signup() {
       .post("https://skrat-expat.herokuapp.com/api/auth/register", newUser)
       .then((res) => {
         console.log("Login res: ", res);
+        history.push('/dashboard');
       })
       .catch((err) => {
         console.log(err);
