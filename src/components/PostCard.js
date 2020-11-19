@@ -5,17 +5,18 @@ import { editPost, deletePost } from '../actions/PostsAction';
 
 const initialPost = {
   id: "",
-  name: "",
+  title: "",
   date: "",
   location: "",
-  imageURL: "",
+  image_url: "",
   notes: "",
   rating: "",
-  role: "",
+  category: "",
 }
 
 const PostCard = (props) => {
-  const { id, name, date, location, imageURL, notes, rating, role } = props;
+  console.log(props)
+  const { id, title, date, location, image_url, notes, rating, category } = props.post;
   const [editing, setEditing] = useState(false);
   const [postToEdit, setPostToEdit] = useState(initialPost);
 
@@ -31,21 +32,21 @@ const PostCard = (props) => {
 
   const save = (event) => {
     event.preventDefault();
-    props.postEdit(props.post);
+    postEdit(props.post);
   };
 
   return (
     <div className="post card">
       <div className="image-container">
-        <img src={imageURL} alt={imageURL} />
+        <img src={image_url} alt={title} />
       </div>
       <div className="card-info">
-        <h2>{name}</h2>
-        <p>{date}</p>
-        <p>{location}</p>
+        <h2>{title}</h2>
+        <p>Date: {date}</p>
+        <p>Location: {location}</p>
         <p>{notes}</p>
-        <p>{rating}</p>
-        <p>{role}</p>
+        <p>Rating: {rating}</p>
+        <p>Person, Place, or Thing: {category}</p>
         <button onClick={postEdit}>Edit</button>
         <button onClick={postDelete}>Delete</button>
         <br />
@@ -98,8 +99,8 @@ const PostCard = (props) => {
               </label>
             </ul>
             <div>
-              <button type="submit">save</button>
-              <button onClick={() => setEditing(false)}>cancle</button>
+              <button type="submit">Save</button>
+              <button onClick={() => setEditing(false)}>Cancel</button>
             </div>
           </form>
         )}
