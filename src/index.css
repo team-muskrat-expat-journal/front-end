@@ -1,4 +1,15 @@
+*{
+    box-sizing:border-box;
+    max-width:100%; /*you can never be bigger than your parent - this is going to stop that dreaded horizontal scroll bar*/
+    border:1px solid grey;
+}
+
+html{
+  font-size:62.5%;
+}
+
 body {
+  font-size:1.8rem;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',

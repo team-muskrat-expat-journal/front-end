@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import axiosWithAuth from "../utils/axiosWithAuth";
-import styled from "styled-components";
 import * as yup from "yup";
+import styled from "styled-components";
+import { Button, FormGroup, Label } from "reactstrap";
+import "./Style/PostForm.css";
 
 const initalErrors = {
   name: "",
@@ -98,70 +100,78 @@ export default function PostForm(props) {
     <div className="post-form container">
       <header>
         <h1>Add a Trip to Your Journal</h1>
-        <div className="errors">
-          <div>{errors.tripname}</div>
-          <div>{errors.date}</div>
-          <div>{errors.imageURL}</div>
-        </div>
       </header>
-      <StyledForm>
-        <form className="form container" onSubmit={onSubmit}>
-          <label>
-            This is a:
+      <div className="form container">
+        <StyledForm onSubmit={onSubmit}>
+          <FormGroup>
+            <Label for="role">This is a:&nbsp;</Label>
             <select name="role" value={formValues.role} onChange={onChange}>
               <option value="">--- Select role ---</option>
               <option value="Person">Person</option>
               <option value="Place">Place</option>
               <option value="Thing">Thing</option>
             </select>
-          </label>
-          <label>
-            Name:&nbsp;
+          </FormGroup>
+          <br />
+          <FormGroup>
+            <Label for="name">Name:&nbsp;</Label>
             <input
               type="text"
               name="tripname"
               value={formValues.tripname}
               onChange={onChange}
             />
-          </label>
-          <label>
-            Date:&nbsp;
+            <div>{errors.tripname}</div>
+          </FormGroup>
+          <br />
+          <FormGroup>
+            <Label for="date">Date:&nbsp;</Label>
             <input
               type="text"
               name="date"
               value={formValues.date}
               onChange={onChange}
             />
-          </label>
-          <label>
-            Location:&nbsp;
+            <div>{errors.date}</div>
+          </FormGroup>
+          <br />
+          <FormGroup>
+            <Label for="location">Location:&nbsp;</Label>
             <input
               type="text"
               name="location"
               value={formValues.location}
               onChange={onChange}
             />
-          </label>
-          <label>
-            ImageURL:&nbsp;
+            <div>
+              <br />
+            </div>
+          </FormGroup>
+          <br />
+          <FormGroup>
+            <Label for="imageURL">ImageURL:&nbsp;</Label>
             <input
               type="text"
               name="imageURL"
               value={formValues.imageURL}
               onChange={onChange}
             />
-          </label>
-          <label>
-            Notes:&nbsp;
+
+            <div>{errors.imageURL}</div>
+          </FormGroup>
+          <br />
+          <FormGroup>
+            <Label for="notes">Notes:&nbsp;</Label>
             <input
               type="text"
               name="notes"
               value={formValues.notes}
               onChange={onChange}
             />
-          </label>
-          <label>
-            Rating:&nbsp;
+          </FormGroup>
+          <br />
+          <FormGroup>
+            <Label for="rating">Rating:&nbsp; </Label>
             <select name="rating" value={formValues.rating} onChange={onChange}>
               <option value="">---Select---</option>
               <option value="1">1</option>
@@ -170,25 +180,28 @@ export default function PostForm(props) {
               <option value="4">4</option>
               <option value="5">5</option>
             </select>
-          </label>
-          <button disabled={disabled} onSubmit={onSubmit}>
+          </FormGroup>
+          <br />
+          <Button disabled={disabled} onSubmit={onSubmit}>
             Submit Post
-          </button>
-        </form>
-      </StyledForm>
+          </Button>
+        </StyledForm>
+      </div>
     </div>
   );
 }
-
-const StyledForm = styled.div`
-  margin-top: 1%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 30%;
-  background-color: rgba(13, 27, 42, 0.25);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  width: 30%;
-  border-radius: 10%;
-  padding: 5%;
+const StyledForm = styled.form`
+  width: 90%;
+  font-size: 2.5rem;
+  label {
+    width: 60%;
+    dispaly: flex;
+  }
+  input {
+    width: 90%;
+    align-content: end;
+  }
+  button {
+    margin: 0 40% 3% 40%;
+  }
 `;
