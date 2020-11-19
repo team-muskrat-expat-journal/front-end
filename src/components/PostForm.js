@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import * as yup from "yup";
+import styled from "styled-components";
+import { Button, FormGroup, Label } from "reactstrap";
+import "./Style/PostForm.css";
 
 import axiosWithAuth from "../utils/axiosWithAuth";
 import { addPost } from "../actions/PostsAction";
@@ -92,6 +95,7 @@ const PostForm = (props) => {
   }, [formValues]);
 
   return (
+
     <>
       <nav>
         <div className="logo">
@@ -224,9 +228,24 @@ const PostForm = (props) => {
         </div>
       </div>
     </>
-  );
-};
 
+  );
+}
+const StyledForm = styled.form`
+  width: 90%;
+  font-size: 2.5rem;
+  label {
+    width: 60%;
+    dispaly: flex;
+  }
+  input {
+    width: 90%;
+    align-content: end;
+  }
+  button {
+    margin: 0 40% 3% 40%;
+  }
+`;
 const mapStateToProps = (state) => {
   return {
     posts: state.posts,
