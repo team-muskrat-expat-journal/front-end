@@ -61,6 +61,7 @@ export default function PostForm(props) {
 
   const onChange = (evt) => {
     const { name, value } = evt.target;
+    formSchema(name, value);
     setPost({ ...formValues, [name]: value });
   };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Posts(props) {
+export default function Dashboard(props) {
   const { posts } = props;
 
   return (
