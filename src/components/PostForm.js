@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import axiosWithAuth from "../utils/axiosWithAuth";
+import { Link, useHistory } from "react-router-dom";
+import { connect } from 'react-redux';
 import * as yup from "yup";
+
+import axiosWithAuth from "../utils/axiosWithAuth";
+import { addPost } from '../actions/PostsAction';
 
 const initalErrors = {
   name: "",
@@ -23,7 +26,7 @@ const initialFormValues = {
 const initialPosts = [];
 const initialDisabled = true;
 
-export default function PostForm(props) {
+const PostForm = (props) => {
   const [posts, setPosts] = useState(initialPosts);
   const [errors, setErrors] = useState(initalErrors);
   const [formValues, setFormValues] = useState(initialFormValues);
@@ -34,9 +37,9 @@ export default function PostForm(props) {
   const formSchema = yup.object().shape({
     tripname: yup.string().required("The Trip Must Have A Name"),
     date: yup.string().required("Must Have A Date For The Trip"),
-    imageURL: yup.string().required("A Phot From he Trip Is Required"),
+    imageURL: yup.string().required("A Photo From The Trip Is Required"),
     location: yup.string().required("Must Have Location Of Trip"),
-    role: yup.string().oneOf(["person", "place", "thing"], "role is required"),
+    role: yup.string(),
     rating: yup.string(),
     notes: yup.string(),
   });
@@ -64,29 +67,24 @@ export default function PostForm(props) {
     const valueToUse = value;
     setFormValues({ ...formValues, [name]: valueToUse });
     setFormErrors(name, valueToUse);
+    // console.log(formValues);
   };
 
   const onSubmit = (evt) => {
     evt.preventDefault();
     const newPost = {
-      role: formValues.role.trim(),
-      tripname: formValues.tripname.trim(),
-      date: formValues.date.trim(),
-      location: formValues.location.trim(),
-      imageURL: formValues.imageURL.trim(),
-      notes: formValues.notes.trim(),
-      rating: formValues.rating.trim(),
+      role: formValues.role,
+      tripname: formValues.tripname,
+      date: formValues.date,
+      location: formValues.location,
+      imageURL: formValues.imageURL,
+      notes: formValues.notes,
+      rating: formValues.rating,
+      user_id: localStorage.getItem('user_id'),
     };
-    axiosWithAuth()
-      .post("api/journal", newPost)
-      .then((res) => {
-        localStorage.getItem("token");
-        history.push("/dashboard");
-        console.log("Post res: ", res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    console.log('New Post: ', newPost);
+    props.addPost(newPost, history, setFormValues, initialFormValues);
+    setFormValues(initialFormValues);
   };
 
   useEffect(() => {
@@ -112,6 +110,7 @@ export default function PostForm(props) {
             <option value="Place">Place</option>
             <option value="Thing">Thing</option>
           </select>
+          <div style={{ color: 'red' }}>{errors.role}</div>
         </label>
         <label>
           Name:&nbsp;
@@ -121,6 +120,7 @@ export default function PostForm(props) {
             value={formValues.tripname}
             onChange={onChange}
           />
+          <div style={{ color: 'red' }}>{errors.tripname}</div>
         </label>
         <label>
           Date:&nbsp;
@@ -130,6 +130,7 @@ export default function PostForm(props) {
             value={formValues.date}
             onChange={onChange}
           />
+          <div style={{ color: 'red' }}>{errors.date}</div>
         </label>
         <label>
           Location:&nbsp;
@@ -139,6 +140,7 @@ export default function PostForm(props) {
             value={formValues.location}
             onChange={onChange}
           />
+          <div style={{ color: 'red' }}>{errors.location}</div>
         </label>
         <label>
           ImageURL:&nbsp;
@@ -148,6 +150,7 @@ export default function PostForm(props) {
             value={formValues.imageURL}
             onChange={onChange}
           />
+          <div style={{ color: 'red' }}>{errors.imageURL}</div>
         </label>
         <label>
           Notes:&nbsp;
@@ -157,6 +160,7 @@ export default function PostForm(props) {
             value={formValues.notes}
             onChange={onChange}
           />
+          <div style={{ color: 'red' }}>{errors.notes}</div>
         </label>
         <label>
           Rating:&nbsp;
@@ -168,11 +172,20 @@ export default function PostForm(props) {
             <option value="4">4</option>
             <option value="5">5</option>
           </select>
+          <div style={{ color: 'red' }}>{errors.rating}</div>
         </label>
         <button disabled={disabled} onSubmit={onSubmit}>
           Submit Post
         </button>
+        <Link to='/dashboard'>Back</Link>
       </form>
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    posts: state.posts,
+  };
+};
+export default connect(mapStateToProps, { addPost })(PostForm);

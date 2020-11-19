@@ -6,6 +6,7 @@ import PostCard from './PostCard';
 import { fetchPosts } from '../actions/PostsAction';
 
 const Dashboard = (props) => {
+  console.log(props)
   const { posts } = props;
 
   useEffect(() => {

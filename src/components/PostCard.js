@@ -1,24 +1,26 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { editPost, deletePost } from '../actions/PostsAction';
 
 const initialPost = {
   id: "",
-  title: "",
+  tripname: "",
   date: "",
   location: "",
-  image_url: "",
+  imageURL: "",
   notes: "",
   rating: "",
-  category: "",
+  role: "",
 }
 
 const PostCard = (props) => {
-  console.log(props)
-  const { id, title, date, location, image_url, notes, rating, category } = props.post;
+  console.log(props.post)
+  const { id, tripname, date, location, imageURL, notes, rating, role } = props.post;
   const [editing, setEditing] = useState(false);
   const [postToEdit, setPostToEdit] = useState(initialPost);
+  const history = useHistory();
 
   const postEdit = (edit) => {
     setEditing(true);
@@ -28,25 +30,26 @@ const PostCard = (props) => {
   const postDelete = (event) => {
     event.preventDefault();
     props.deletePost(id);
+    history.push('/dashboard');
   };
 
   const save = (event) => {
     event.preventDefault();
-    postEdit(props.post);
+    props.editPost(id, postToEdit);
   };
 
   return (
     <div className="post card">
       <div className="image-container">
-        <img src={image_url} alt={title} />
+        <img src={imageURL} alt={tripname} />
       </div>
       <div className="card-info">
-        <h2>{title}</h2>
+        <h2>{tripname}</h2>
         <p>Date: {date}</p>
         <p>Location: {location}</p>
         <p>{notes}</p>
         <p>Rating: {rating}</p>
-        <p>Person, Place, or Thing: {category}</p>
+        <p>Person, Place, or Thing: {role}</p>
         <button onClick={postEdit}>Edit</button>
         <button onClick={postDelete}>Delete</button>
         <br />
