@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import * as yup from "yup";
+import styled from "styled-components";
+import { Button, FormGroup, Label } from "reactstrap";
+import "./Style/PostForm.css";
 
 import axiosWithAuth from "../utils/axiosWithAuth";
 import { addPost } from "../actions/PostsAction";
@@ -95,94 +98,112 @@ const PostForm = (props) => {
     <div className="post-form container">
       <header>
         <h1>Add a Trip to Your Journal</h1>
-        <div className="errors">
-          <div>{errors.tripname}</div>
-          <div>{errors.date}</div>
-          <div>{errors.imageURL}</div>
-        </div>
       </header>
-      <form className="form container" onSubmit={onSubmit}>
-        <label>
-          This is a:
-          <select name="role" value={formValues.role} onChange={onChange}>
-            <option value="">--- Select role ---</option>
-            <option value="Person">Person</option>
-            <option value="Place">Place</option>
-            <option value="Thing">Thing</option>
-          </select>
-          <div style={{ color: "red" }}>{errors.role}</div>
-        </label>
-        <label>
-          Name:&nbsp;
-          <input
-            type="text"
-            name="tripname"
-            value={formValues.tripname}
-            onChange={onChange}
-          />
-          <div style={{ color: "red" }}>{errors.tripname}</div>
-        </label>
-        <label>
-          Date:&nbsp;
-          <input
-            type="text"
-            name="date"
-            value={formValues.date}
-            onChange={onChange}
-          />
-          <div style={{ color: "red" }}>{errors.date}</div>
-        </label>
-        <label>
-          Location:&nbsp;
-          <input
-            type="text"
-            name="location"
-            value={formValues.location}
-            onChange={onChange}
-          />
-          <div style={{ color: "red" }}>{errors.location}</div>
-        </label>
-        <label>
-          ImageURL:&nbsp;
-          <input
-            type="text"
-            name="imageURL"
-            value={formValues.imageURL}
-            onChange={onChange}
-          />
-          <div style={{ color: "red" }}>{errors.imageURL}</div>
-        </label>
-        <label>
-          Notes:&nbsp;
-          <input
-            type="text"
-            name="notes"
-            value={formValues.notes}
-            onChange={onChange}
-          />
-          <div style={{ color: "red" }}>{errors.notes}</div>
-        </label>
-        <label>
-          Rating:&nbsp;
-          <select name="rating" value={formValues.rating} onChange={onChange}>
-            <option value="">---Select---</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-          <div style={{ color: "red" }}>{errors.rating}</div>
-        </label>
-        <button disabled={disabled} onSubmit={onSubmit}>
-          Submit Post
-        </button>
-        <Link to="/dashboard">Back</Link>
-      </form>
+      <div className="form container">
+        <StyledForm onSubmit={onSubmit}>
+          <FormGroup>
+            <Label for="role">This is a:&nbsp;</Label>
+            <select name="role" value={formValues.role} onChange={onChange}>
+              <option value="">--- Select role ---</option>
+              <option value="Person">Person</option>
+              <option value="Place">Place</option>
+              <option value="Thing">Thing</option>
+            </select>
+          </FormGroup>
+          <br />
+          <FormGroup>
+            <Label for="name">Name:&nbsp;</Label>
+            <input
+              type="text"
+              name="tripname"
+              value={formValues.tripname}
+              onChange={onChange}
+            />
+            <div>{errors.tripname}</div>
+          </FormGroup>
+          <br />
+          <FormGroup>
+            <Label for="date">Date:&nbsp;</Label>
+            <input
+              type="text"
+              name="date"
+              value={formValues.date}
+              onChange={onChange}
+            />
+            <div>{errors.date}</div>
+          </FormGroup>
+          <br />
+          <FormGroup>
+            <Label for="location">Location:&nbsp;</Label>
+            <input
+              type="text"
+              name="location"
+              value={formValues.location}
+              onChange={onChange}
+            />
+            <div>
+              <br />
+            </div>
+          </FormGroup>
+          <br />
+          <FormGroup>
+            <Label for="imageURL">ImageURL:&nbsp;</Label>
+            <input
+              type="text"
+              name="imageURL"
+              value={formValues.imageURL}
+              onChange={onChange}
+            />
+
+            <div>{errors.imageURL}</div>
+          </FormGroup>
+          <br />
+          <FormGroup>
+            <Label for="notes">Notes:&nbsp;</Label>
+            <input
+              type="text"
+              name="notes"
+              value={formValues.notes}
+              onChange={onChange}
+            />
+          </FormGroup>
+          <br />
+          <FormGroup>
+            <Label for="rating">Rating:&nbsp; </Label>
+            <select name="rating" value={formValues.rating} onChange={onChange}>
+              <option value="">---Select---</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </FormGroup>
+          <br />
+          <Button disabled={disabled} onSubmit={onSubmit}>
+            Submit Post
+          </Button>
+          <Link to="/dashboard">Back</Link>
+        </StyledForm>
+      </div>
     </div>
   );
-};
-
+}
+const StyledForm = styled.form`
+  width: 90%;
+  font-size: 2.5rem;
+  label {
+    width: 60%;
+    dispaly: flex;
+  }
+  input {
+    width: 90%;
+    align-content: end;
+  }
+  button {
+    margin: 0 40% 3% 40%;
+  }
+`;
 const mapStateToProps = (state) => {
   return {
     posts: state.posts,
