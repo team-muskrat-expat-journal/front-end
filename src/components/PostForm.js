@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import axiosWithAuth from "../utils/axiosWithAuth";
 import * as yup from "yup";
 
@@ -11,7 +11,7 @@ const initalErrors = {
 };
 
 const initialFormValues = {
-  name: "",
+  tripname: "",
   date: "",
   location: "",
   imageURL: "",
@@ -20,11 +20,11 @@ const initialFormValues = {
   role: "",
 };
 
-const initialPostValues = [];
+const initialPosts = [];
 const initialDisabled = true;
 
 export default function PostForm(props) {
-  const [post, setPost] = useState(initialPostValues);
+  const [posts, setPosts] = useState(initialPosts);
   const [errors, setErrors] = useState(initalErrors);
   const [formValues, setFormValues] = useState(initialFormValues);
   const [disabled, setDisabled] = useState(initialDisabled);
@@ -32,14 +32,16 @@ export default function PostForm(props) {
   const history = useHistory();
 
   const formSchema = yup.object().shape({
-    name: yup.string().required("The Trip Must Have A Name"),
+    tripname: yup.string().required("The Trip Must Have A Name"),
     date: yup.string().required("Must Have A Date For The Trip"),
     imageURL: yup.string().required("A Phot From he Trip Is Required"),
     location: yup.string().required("Must Have Location Of Trip"),
     role: yup.string().oneOf(["person", "place", "thing"], "role is required"),
+    rating: yup.string(),
+    notes: yup.string(),
   });
 
-  const formErrors = (name, value) => {
+  const setFormErrors = (name, value) => {
     yup
       .reach(formSchema, name)
       .validate(value)
@@ -59,15 +61,16 @@ export default function PostForm(props) {
 
   const onChange = (evt) => {
     const { name, value } = evt.target;
-    formSchema(name, value);
-    setPost({ ...formValues, [name]: value });
+    const valueToUse = value;
+    setFormValues({ ...formValues, [name]: valueToUse });
+    setFormErrors(name, valueToUse);
   };
 
   const onSubmit = (evt) => {
     evt.preventDefault();
     const newPost = {
       role: formValues.role.trim(),
-      name: formValues.name.trim(),
+      tripname: formValues.tripname.trim(),
       date: formValues.date.trim(),
       location: formValues.location.trim(),
       imageURL: formValues.imageURL.trim(),
@@ -75,10 +78,10 @@ export default function PostForm(props) {
       rating: formValues.rating.trim(),
     };
     axiosWithAuth()
-      .post("api/post", newPost)
+      .post("api/journal", newPost)
       .then((res) => {
-        localStorage.setItem("token", res.data.payload);
-        history.pushState("/");
+        localStorage.getItem("token");
+        history.push("/dashboard");
         console.log("Post res: ", res);
       })
       .catch((err) => {
@@ -95,7 +98,7 @@ export default function PostForm(props) {
       <header>
         <h1>Add a Trip to Your Journal</h1>
         <div className="errors">
-          <div>{errors.name}</div>
+          <div>{errors.tripname}</div>
           <div>{errors.date}</div>
           <div>{errors.imageURL}</div>
         </div>
@@ -103,7 +106,7 @@ export default function PostForm(props) {
       <form className="form container" onSubmit={onSubmit}>
         <label>
           This is a:
-          <select name="role" value={post.role} onChange={onChange}>
+          <select name="role" value={formValues.role} onChange={onChange}>
             <option value="">--- Select role ---</option>
             <option value="Person">Person</option>
             <option value="Place">Place</option>
@@ -115,7 +118,7 @@ export default function PostForm(props) {
           <input
             type="text"
             name="tripname"
-            value={post.name}
+            value={formValues.tripname}
             onChange={onChange}
           />
         </label>
@@ -124,7 +127,7 @@ export default function PostForm(props) {
           <input
             type="text"
             name="date"
-            value={post.date}
+            value={formValues.date}
             onChange={onChange}
           />
         </label>
@@ -133,7 +136,7 @@ export default function PostForm(props) {
           <input
             type="text"
             name="location"
-            value={post.location}
+            value={formValues.location}
             onChange={onChange}
           />
         </label>
@@ -142,7 +145,7 @@ export default function PostForm(props) {
           <input
             type="text"
             name="imageURL"
-            value={post.imageURL}
+            value={formValues.imageURL}
             onChange={onChange}
           />
         </label>
@@ -151,13 +154,13 @@ export default function PostForm(props) {
           <input
             type="text"
             name="notes"
-            value={post.notes}
+            value={formValues.notes}
             onChange={onChange}
           />
         </label>
         <label>
           Rating:&nbsp;
-          <select name="rating" value={post.rating} onChange={onChange}>
+          <select name="rating" value={formValues.rating} onChange={onChange}>
             <option value="">---Select---</option>
             <option value="1">1</option>
             <option value="2">2</option>
