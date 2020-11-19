@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import * as yup from "yup";
 
 import axiosWithAuth from "../utils/axiosWithAuth";
-import { addPost } from '../actions/PostsAction';
+import { addPost } from "../actions/PostsAction";
 
 const initalErrors = {
   name: "",
@@ -23,11 +23,11 @@ const initialFormValues = {
   role: "",
 };
 
-const initialPosts = [];
+//const initialPosts = [];
 const initialDisabled = true;
 
 const PostForm = (props) => {
-  const [posts, setPosts] = useState(initialPosts);
+  //const [posts, setPosts] = useState(initialPosts);
   const [errors, setErrors] = useState(initalErrors);
   const [formValues, setFormValues] = useState(initialFormValues);
   const [disabled, setDisabled] = useState(initialDisabled);
@@ -80,9 +80,9 @@ const PostForm = (props) => {
       imageURL: formValues.imageURL,
       notes: formValues.notes,
       rating: formValues.rating,
-      user_id: localStorage.getItem('user_id'),
+      user_id: localStorage.getItem("user_id"),
     };
-    console.log('New Post: ', newPost);
+    console.log("New Post: ", newPost);
     props.addPost(newPost, history, setFormValues, initialFormValues);
     setFormValues(initialFormValues);
   };
@@ -110,7 +110,7 @@ const PostForm = (props) => {
             <option value="Place">Place</option>
             <option value="Thing">Thing</option>
           </select>
-          <div style={{ color: 'red' }}>{errors.role}</div>
+          <div style={{ color: "red" }}>{errors.role}</div>
         </label>
         <label>
           Name:&nbsp;
@@ -120,7 +120,7 @@ const PostForm = (props) => {
             value={formValues.tripname}
             onChange={onChange}
           />
-          <div style={{ color: 'red' }}>{errors.tripname}</div>
+          <div style={{ color: "red" }}>{errors.tripname}</div>
         </label>
         <label>
           Date:&nbsp;
@@ -130,7 +130,7 @@ const PostForm = (props) => {
             value={formValues.date}
             onChange={onChange}
           />
-          <div style={{ color: 'red' }}>{errors.date}</div>
+          <div style={{ color: "red" }}>{errors.date}</div>
         </label>
         <label>
           Location:&nbsp;
@@ -140,7 +140,7 @@ const PostForm = (props) => {
             value={formValues.location}
             onChange={onChange}
           />
-          <div style={{ color: 'red' }}>{errors.location}</div>
+          <div style={{ color: "red" }}>{errors.location}</div>
         </label>
         <label>
           ImageURL:&nbsp;
@@ -150,7 +150,7 @@ const PostForm = (props) => {
             value={formValues.imageURL}
             onChange={onChange}
           />
-          <div style={{ color: 'red' }}>{errors.imageURL}</div>
+          <div style={{ color: "red" }}>{errors.imageURL}</div>
         </label>
         <label>
           Notes:&nbsp;
@@ -160,7 +160,7 @@ const PostForm = (props) => {
             value={formValues.notes}
             onChange={onChange}
           />
-          <div style={{ color: 'red' }}>{errors.notes}</div>
+          <div style={{ color: "red" }}>{errors.notes}</div>
         </label>
         <label>
           Rating:&nbsp;
@@ -172,16 +172,16 @@ const PostForm = (props) => {
             <option value="4">4</option>
             <option value="5">5</option>
           </select>
-          <div style={{ color: 'red' }}>{errors.rating}</div>
+          <div style={{ color: "red" }}>{errors.rating}</div>
         </label>
         <button disabled={disabled} onSubmit={onSubmit}>
           Submit Post
         </button>
-        <Link to='/dashboard'>Back</Link>
+        <Link to="/dashboard">Back</Link>
       </form>
     </div>
   );
-}
+};
 
 const mapStateToProps = (state) => {
   return {
