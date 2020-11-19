@@ -33,7 +33,7 @@ const PostCard = (props) => {
 
   const postEdit = (edit) => {
     setEditing(true);
-    setPostToEdit(id);
+    setPostToEdit(props.post);
   };
 
   const postDelete = (event) => {
@@ -75,8 +75,9 @@ const PostCard = (props) => {
                     Name:&nbsp;
                     <input
                       onChange={(evt) =>
-                        setPostToEdit({ ...postToEdit, name: evt.target.value })
+                        setPostToEdit({ ...postToEdit, tripname: evt.target.value })
                       }
+                      value={postToEdit.tripname}
                     />
                   </label>
                   <label>
@@ -85,6 +86,7 @@ const PostCard = (props) => {
                       onChange={(evt) =>
                         setPostToEdit({ ...postToEdit, date: evt.target.value })
                       }
+                      value={postToEdit.date}
                     />
                   </label>
                   <label>
@@ -96,6 +98,7 @@ const PostCard = (props) => {
                           location: evt.target.value,
                         })
                       }
+                      value={postToEdit.location}
                     />
                   </label>
                   <label>
@@ -107,6 +110,7 @@ const PostCard = (props) => {
                           notes: evt.target.value,
                         })
                       }
+                      value={postToEdit.notes}
                     />
                   </label>
                   <label>
@@ -118,6 +122,7 @@ const PostCard = (props) => {
                           rating: evt.target.value,
                         })
                       }
+                      value={postToEdit.rating}
                     />
                   </label>
                 </ul>
