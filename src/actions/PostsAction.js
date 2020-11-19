@@ -7,9 +7,9 @@ export const FETCH_POSTS_ERROR = 'FETCH_POSTS_ERROR';
 export const fetchPosts = (id) => (dispatch) => {
     dispatch({ type: FETCH_POSTS_START });
     axiosWithAuth()
-        .get('api/journal')
+        .get('api/journal/posts')
             .then(res => {
-                dispatch({ type: FETCH_POSTS_SUCCESS, payload: res.data });
+                dispatch({ type: FETCH_POSTS_SUCCESS, payload: res.data.journal });
             })
             .catch(err => {
                 dispatch({ type: FETCH_POSTS_ERROR, payload: err.message });
@@ -19,22 +19,22 @@ export const fetchPosts = (id) => (dispatch) => {
 export const POST_ADD = 'POST_ADD';
 export const POST_ADD_ERROR = 'POST_ADD_ERROR';
 
-export const addPost = (newPost, history, setForm, initialForm) => (
+export const addPost = (newPost, history, setFormValues, initialFormValues) => (
     dispatch
 ) => {
     axiosWithAuth()
-        .post('api/journal', newPost)
+        .post('api/journal/posts', newPost)
             .then(res => {
                 console.log(res);
                 dispatch({ type: POST_ADD, payload: res.data.posts });
-                history.push('/home');
+                history.push('/dashboard');
             })
             .catch(err => {
                 console.log(err);
                 dispatch({ type: POST_ADD_ERROR, payload: err.message });
             })
             .finally(() => {
-                setForm(initialForm);
+                setFormValues(initialFormValues);
             });
 };
 
@@ -43,7 +43,7 @@ export const POST_DELETE_ERROR = 'POST_DELETE_ERROR';
 
 export const deletePost = (id) => (dispatch) => {
     axiosWithAuth()
-        .delete(`api/journal/${id}`)
+        .delete(`api/journal/posts/${id}`)
             .then(res => {
                 console.log(res);
                 dispatch({ type: POST_DELETE, payload: res.data });
@@ -59,13 +59,13 @@ export const POST_EDIT_ERROR = 'POST_EDIT_ERROR';
 
 export const editPost = (id, data) => (dispatch) => {
     axiosWithAuth()
-        .put(`api/journal/${id}`, data)
+        .put(`api/journal/posts/${id}`, data)
             .then(res => {
                 console.log(res);
-                dispatch({ type: POST_EDIT, payload: res.data.post });
+                dispatch({ type: POST_EDIT, payload: res.data.posts });
             })
             .catch(err => {
                 console.log(err);
-                dispatch({ type: POST_EDIT_ERROR, payload: err.message });
+                dispatch({ type: POST_EDIT_ERROR, payload: err.stack });
             });
 };

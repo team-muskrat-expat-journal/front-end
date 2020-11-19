@@ -57,6 +57,7 @@ function Login() {
       .post("https://skrat-expat.herokuapp.com/api/auth/login", newUser)
       .then((res) => {
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("user_id", res.data.data.id);
         history.push("/dashboard");
         console.log("Login res: ", res);
       })
@@ -66,6 +67,23 @@ function Login() {
   };
   return (
     <div>
+      <nav>
+        <div className="logo">
+          <h2>Team 'Skrat Expat Journal</h2>
+        </div>
+        <div className="links">
+          <Link to="/">
+            <button className="navButton" type="button">
+              Home
+            </button>
+          </Link>
+          <Link to="/Login">
+            <button className="navButton" type="button">
+              Sign in!
+            </button>
+          </Link>
+        </div>
+      </nav>
       <h2 className="login">Login</h2>
       <br></br>
       <div className="signup">
@@ -100,7 +118,9 @@ function Login() {
             Submit
           </button>
           <br></br>
-          <Link to="/Signup">New User?</Link>
+          <Link to="/Signup">
+            <button className="form-control">New User?</button>
+          </Link>
         </form>
         <br></br>
       </div>
