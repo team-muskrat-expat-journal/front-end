@@ -58,6 +58,7 @@ export const POST_EDIT = 'POST_EDIT';
 export const POST_EDIT_ERROR = 'POST_EDIT_ERROR';
 
 export const editPost = (id, data) => (dispatch) => {
+    console.log(id, data);
     axiosWithAuth()
         .put(`api/journal/posts/${id}`, data)
             .then(res => {
