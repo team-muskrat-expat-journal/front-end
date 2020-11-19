@@ -1,6 +1,6 @@
 import React from 'react'
 import {useParams, useRouteMatch, Route} from 'react-router-dom'
-import PostDetails from './PostDetails'
+import PostCard from './PostCard'
 
 export default function Post(props){
     const {posts} = props;
@@ -22,7 +22,7 @@ export default function Post(props){
                 </div>
             </div>
             <Route path={`${path}/${postID}`}>
-                <PostDetails details={post}/>
+                <PostCard details={post}/>
             </Route>
         </div>
     )

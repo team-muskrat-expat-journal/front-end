@@ -105,7 +105,7 @@ export default function PostForm(props) {
         <label>
           This is a:
           <select name="role" value={post.role} onChange={onChange}>
-            <option value="">--- Select role</option>
+            <option value="">--- Select role ---</option>
             <option value="Person">Person</option>
             <option value="Place">Place</option>
             <option value="Thing">Thing</option>
