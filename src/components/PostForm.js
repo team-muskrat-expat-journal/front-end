@@ -92,94 +92,138 @@ const PostForm = (props) => {
   }, [formValues]);
 
   return (
-    <div className="post-form container">
-      <header>
-        <h1>Add a Trip to Your Journal</h1>
-        <div className="errors">
-          <div>{errors.tripname}</div>
-          <div>{errors.date}</div>
-          <div>{errors.imageURL}</div>
+    <>
+      <nav>
+        <div className="logo">
+          <h2>Team 'Skrat Expat Journal</h2>
         </div>
-      </header>
-      <form className="form container" onSubmit={onSubmit}>
-        <label>
-          This is a:
-          <select name="role" value={formValues.role} onChange={onChange}>
-            <option value="">--- Select role ---</option>
-            <option value="Person">Person</option>
-            <option value="Place">Place</option>
-            <option value="Thing">Thing</option>
-          </select>
-          <div style={{ color: "red" }}>{errors.role}</div>
-        </label>
-        <label>
-          Name:&nbsp;
-          <input
-            type="text"
-            name="tripname"
-            value={formValues.tripname}
-            onChange={onChange}
-          />
-          <div style={{ color: "red" }}>{errors.tripname}</div>
-        </label>
-        <label>
-          Date:&nbsp;
-          <input
-            type="text"
-            name="date"
-            value={formValues.date}
-            onChange={onChange}
-          />
-          <div style={{ color: "red" }}>{errors.date}</div>
-        </label>
-        <label>
-          Location:&nbsp;
-          <input
-            type="text"
-            name="location"
-            value={formValues.location}
-            onChange={onChange}
-          />
-          <div style={{ color: "red" }}>{errors.location}</div>
-        </label>
-        <label>
-          ImageURL:&nbsp;
-          <input
-            type="text"
-            name="imageURL"
-            value={formValues.imageURL}
-            onChange={onChange}
-          />
-          <div style={{ color: "red" }}>{errors.imageURL}</div>
-        </label>
-        <label>
-          Notes:&nbsp;
-          <input
-            type="text"
-            name="notes"
-            value={formValues.notes}
-            onChange={onChange}
-          />
-          <div style={{ color: "red" }}>{errors.notes}</div>
-        </label>
-        <label>
-          Rating:&nbsp;
-          <select name="rating" value={formValues.rating} onChange={onChange}>
-            <option value="">---Select---</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-          <div style={{ color: "red" }}>{errors.rating}</div>
-        </label>
-        <button disabled={disabled} onSubmit={onSubmit}>
-          Submit Post
-        </button>
-        <Link to="/dashboard">Back</Link>
-      </form>
-    </div>
+
+        <div className="links">
+          <Link to="/Dashboard">
+            <button className="navButton" type="button">
+              Dashboard
+            </button>
+          </Link>
+          <Link to="/">
+            <button className="navButton" type="button">
+              Log out
+            </button>
+          </Link>
+        </div>
+      </nav>
+      <div className="signup">
+        <div className="post-form container">
+          <header>
+            <h2>Add a Trip to Your Journal</h2>
+            <div className="errors">
+              <div>{errors.tripname}</div>
+              <div>{errors.date}</div>
+              <div>{errors.imageURL}</div>
+            </div>
+          </header>
+          <form className="form container" onSubmit={onSubmit}>
+            <label>
+              This is a:
+              <select
+                name="role"
+                className="form-control"
+                value={formValues.role}
+                onChange={onChange}
+              >
+                <option value="">--- Select role ---</option>
+                <option value="Person">Person</option>
+                <option value="Place">Place</option>
+                <option value="Thing">Thing</option>
+              </select>
+              <div style={{ color: "red" }}>{errors.role}</div>
+            </label>
+            <br></br>
+            <label>
+              Name:&nbsp;
+              <input
+                className="form-control"
+                type="text"
+                name="tripname"
+                value={formValues.tripname}
+                onChange={onChange}
+              />
+              <div style={{ color: "red" }}>{errors.tripname}</div>
+            </label>
+            <br></br>
+            <label>
+              Date:&nbsp;
+              <input
+                className="form-control"
+                type="text"
+                name="date"
+                value={formValues.date}
+                onChange={onChange}
+              />
+              <div style={{ color: "red" }}>{errors.date}</div>
+            </label>
+            <br></br>
+            <label>
+              Location:&nbsp;
+              <input
+                className="form-control"
+                type="text"
+                name="location"
+                value={formValues.location}
+                onChange={onChange}
+              />
+              <div style={{ color: "red" }}>{errors.location}</div>
+            </label>
+            <br></br>
+            <label>
+              ImageURL:&nbsp;
+              <input
+                className="form-control"
+                type="text"
+                name="imageURL"
+                value={formValues.imageURL}
+                onChange={onChange}
+              />
+              <div style={{ color: "red" }}>{errors.imageURL}</div>
+            </label>
+            <br></br>
+            <label>
+              Notes:&nbsp;
+              <input
+                className="form-control"
+                type="text"
+                name="notes"
+                value={formValues.notes}
+                onChange={onChange}
+              />
+              <div style={{ color: "red" }}>{errors.notes}</div>
+            </label>
+            <br></br>
+            <label>
+              Rating:&nbsp;
+              <select
+                className="form-control"
+                name="rating"
+                value={formValues.rating}
+                onChange={onChange}
+              >
+                <option value="">---Select---</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+              <div style={{ color: "red" }}>{errors.rating}</div>
+            </label>
+            <br></br>
+            <button disabled={disabled} onSubmit={onSubmit}>
+              Submit Post
+            </button>
+            <Link to="/dashboard">Back</Link>
+          </form>
+        </div>
+      </div>
+    </>
   );
 };
 

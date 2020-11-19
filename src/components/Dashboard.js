@@ -20,14 +20,14 @@ const Dashboard = (props) => {
           <h2>Team 'Skrat Expat Journal</h2>
         </div>
         <div className="links">
-          <Link to="/">
+          <Link to="/PostForm">
             <button className="navButton" type="button">
-              Home
+              New Memory
             </button>
           </Link>
-          <Link to="/Login">
+          <Link to="/">
             <button className="navButton" type="button">
-              Sign in!
+              Log out
             </button>
           </Link>
         </div>
