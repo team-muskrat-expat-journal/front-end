@@ -76,7 +76,7 @@ function Signup() {
       .post("https://skrat-expat.herokuapp.com/api/auth/register", newUser)
       .then((res) => {
         console.log("Login res: ", res);
-        history.push('/Login');
+        history.push('/dashboard');
       })
       .catch((err) => {
         console.log(err);

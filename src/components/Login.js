@@ -57,7 +57,7 @@ function Login() {
       .post("https://skrat-expat.herokuapp.com/api/auth/login", newUser)
       .then((res) => {
         localStorage.setItem("token", res.data.token);
-        history.push("/home");
+        history.push("/dashboard");
         console.log("Login res: ", res);
       })
       .catch((err) => {

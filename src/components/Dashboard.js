@@ -1,23 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-export default function Posts(props) {
+import PostCard from './PostCard';
+import { fetchPosts } from '../actions/PostsAction';
+
+const Dashboard = (props) => {
   const { posts } = props;
+
+  useEffect(() => {
+    props.fetchPosts(localStorage.getItem('user_id'));
+  }, []);
 
   return (
     <div className="posts wrapper">
-      {posts.map((post) => (
-        <div className="post-card" key={post.id}>
-          <Link to={`/posts/${post.id}`}>
-            <h3 className="post-name">{post.name}</h3>
-            <img
-              className="posts image"
-              src={post.imageURL}
-              alt={post.imageURL}
-            />
-          </Link>
-        </div>
-      ))}
+      <h1>Feed</h1>
+      {posts && posts.length > 0 ? (
+        posts.map((item) => {
+          return <PostCard post={item} key={item.id} />;
+        })
+      ) : (
+        <p>Nothing to see here... <br />Just a man enjoying some 'skrat... <br />Move along...</p>
+      )}
+
+      <Link to='/post'>
+        Create New Memory
+      </Link>
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    posts: state.posts,
+  };
+};
+export default connect(mapStateToProps, { fetchPosts })(Dashboard);

@@ -1,25 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
+import { connect } from 'react-redux';
 
-export default function postDetails({ details }) {
+import { editPost, deletePost } from '../actions/PostsAction';
+
+const initialPost = {
+  name: "",
+  date: "",
+  location: "",
+  imageURL: "",
+  notes: "",
+  rating: "",
+  role: "",
+}
+
+const PostCard = (props) => {
+  const { id, title, image } = props.post;
+  const [editing, setEditing] = useState(false);
+  const [editPost, setEditPost] = useState(initialPost);
+
+  const deleteEntry = event => {
+    event.preventDefault();
+    props.deletePost(id);
+  };
+
+  const editEntry = () => {
+    setEditing(true);
+    setEditPost(props.post);
+  }
+
+  const onSubmit = event => {
+    event.preventDefault();
+    props.editPost(id, editPost);
+  }
+
   return (
-    <div className="post-container">
-      <header>
-        <div className="image-container">
-          <img src={details.imageURL} alt={details.imageURL} />
-        </div>
-        <div className="details-info">
-          <div className="deetails-info heading">
-            <p>{details.location}</p>
-            <p>{details.date}</p>
+    <div className="post-card">
+      <img src={image} alt={title} />
+      <p>{title}</p>
+      <button onClick={deleteEntry}>Delete Post</button>
+      <button onClick={editEntry}>Edit Post</button>
+      <br />
+      {editing && (
+        <form onSubmit={onSubmit}>
+
+          <div>
+            <button type='submit'>Save</button>
+            <button onClick={() => setEditing(false)}>Cancel</button>
           </div>
-          <div className="rating">
-            <p>{details.rating}</p>
-          </div>
-          <div className="details-notes">
-            <p>{details.notes}</p>
-          </div>
-        </div>
-      </header>
+        </form>
+      )}
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    posts: state.posts,
+  };
+};
+export default connect(mapStateToProps, { deletePost, editPost })(PostCard);
