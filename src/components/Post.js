@@ -1,4 +1,5 @@
 import React from "react";
+// import { Link } from "react-router-dom";
 import { useParams, useRouteMatch, Route } from "react-router-dom";
 
 import PostCard from "./PostCard";
@@ -14,18 +15,20 @@ export default function Post(props) {
     }) || {};
 
   return (
-    <div className="post-wrapper">
-      <div className="post-header">
-        <div className="post-image">
-          <img src={post.imageURL} alt={post.imageURL} />
+    <>
+      <div className="post-wrapper">
+        <div className="post-header">
+          <div className="post-image">
+            <img src={post.imageURL} alt={post.imageURL} />
+          </div>
+          <div className="title container">
+            <h3>{post.name}</h3>
+          </div>
         </div>
-        <div className="title container">
-          <h3>{post.name}</h3>
-        </div>
+        <Route path={`${path}/${postID}`}>
+          <PostCard details={post} />
+        </Route>
       </div>
-      <Route path={`${path}/${postID}`}>
-        <PostCard details={post} />
-      </Route>
-    </div>
+    </>
   );
 }
