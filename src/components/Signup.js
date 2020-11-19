@@ -45,8 +45,8 @@ function Signup() {
 
   const change = (event) => {
     const { checked, value, name, type } = event.target;
-    setFormErrors(name, value);
     const valueToUse = type === "checkbox" ? checked : value;
+    setFormErrors(name, value);
     setForm({ ...form, [name]: valueToUse });
   };
 
