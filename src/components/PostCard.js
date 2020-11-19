@@ -32,14 +32,14 @@ const PostCard = (props) => {
   const history = useHistory();
 
   const postEdit = (edit) => {
+    console.log(id);
     setEditing(true);
-    setPostToEdit(props.post);
+    setPostToEdit(id);
   };
 
   const postDelete = (event) => {
     event.preventDefault();
     props.deletePost(id);
-    history.push("/dashboard");
   };
 
   const save = (event) => {
