@@ -40,11 +40,13 @@ const PostCard = (props) => {
   const postDelete = (event) => {
     event.preventDefault();
     props.deletePost(id);
+    history.push('/deleted');
   };
 
   const save = (event) => {
     event.preventDefault();
     props.editPost(id, postToEdit);
+    history.push('/edited');
   };
 
   return (

@@ -3,7 +3,9 @@ import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 
 import Home from "./components/Home.js";
+import Edited from './components/Edited';
 import Login from "./components/Login.js";
+import Deleted from './components/Deleted';
 import Signup from "./components/Signup.js";
 import PostForm from './components/PostForm';
 import Dashboard from './components/Dashboard';
@@ -28,6 +30,12 @@ const App = () => {
           </PrivateRoute>
           <PrivateRoute exact path='/postform'>
             <PostForm onPost={setOnPost} />
+          </PrivateRoute>
+          <PrivateRoute exact path='/deleted'>
+            <Deleted />
+          </PrivateRoute>
+          <PrivateRoute exact path='/edited'>
+            <Edited />
           </PrivateRoute>
         </Switch>
       </div>
