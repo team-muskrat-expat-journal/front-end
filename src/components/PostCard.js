@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
-
+import "./Style/signUpStyles.css";
 import { editPost, deletePost } from "../actions/PostsAction";
 
 const initialPost = {
@@ -40,100 +40,137 @@ const PostCard = (props) => {
   const postDelete = (event) => {
     event.preventDefault();
     props.deletePost(id);
-    history.push('/deleted');
+    history.push("/deleted");
   };
 
   const save = (event) => {
     event.preventDefault();
     props.editPost(id, postToEdit);
-    history.push('/edited');
+    history.push("/edited");
   };
 
   return (
     <>
       <div>
-        <div className="post card">
-          <div className="image-container">
-            <img src={imageURL} alt={tripname} />
-          </div>
-          <div className="card-info">
-            <h2>{tripname}</h2>
-            <p>Date: {date}</p>
-            <p>Location: {location}</p>
-            <p>{notes}</p>
-            <p>Rating: {rating}</p>
-            <p>Person, Place, or Thing: {role}</p>
-            <button onClick={postEdit}>Edit</button>
-            <button onClick={postDelete}>Delete</button>
-            <br />
-            <br />
-            <br />
-            <br />
-            {editing && (
-              <form onSubmit={save}>
-                <legend>Edit Post</legend>
-                <ul>
-                  <label>
-                    Name:&nbsp;
-                    <input
-                      onChange={(evt) =>
-                        setPostToEdit({ ...postToEdit, tripname: evt.target.value })
-                      }
-                      value={postToEdit.tripname}
-                    />
-                  </label>
-                  <label>
-                    Date:&nbsp;
-                    <input
-                      onChange={(evt) =>
-                        setPostToEdit({ ...postToEdit, date: evt.target.value })
-                      }
-                      value={postToEdit.date}
-                    />
-                  </label>
-                  <label>
-                    Location:&nbsp;
-                    <input
-                      onChange={(evt) =>
-                        setPostToEdit({
-                          ...postToEdit,
-                          location: evt.target.value,
-                        })
-                      }
-                      value={postToEdit.location}
-                    />
-                  </label>
-                  <label>
-                    Notes:&nbsp;
-                    <input
-                      onChange={(evt) =>
-                        setPostToEdit({
-                          ...postToEdit,
-                          notes: evt.target.value,
-                        })
-                      }
-                      value={postToEdit.notes}
-                    />
-                  </label>
-                  <label>
-                    Rating:&nbsp;
-                    <input
-                      onChange={(evt) =>
-                        setPostToEdit({
-                          ...postToEdit,
-                          rating: evt.target.value,
-                        })
-                      }
-                      value={postToEdit.rating}
-                    />
-                  </label>
-                </ul>
-                <div>
-                  <button type="submit">Save</button>
-                  <button onClick={() => setEditing(false)}>Cancel</button>
-                </div>
-              </form>
-            )}
+        <div className="postCard">
+          <div className="post card">
+            <div className="image-container">
+              <div className="post-image">
+                <img src={imageURL} alt={tripname} />
+              </div>
+            </div>
+            <div className="card-info">
+              <h2>{tripname}</h2>
+              <p>Date: {date}</p>
+              <p>Location: {location}</p>
+              <p>{notes}</p>
+              <p>Rating: {rating}</p>
+              <p>Person, Place, or Thing: {role}</p>
+              <button onClick={postEdit}>Edit</button>
+              <button onClick={postDelete}>Delete</button>
+              <br />
+              <br />
+              <br />
+              <br />
+              {/* EDITING */}
+              {editing && (
+                <form onSubmit={save}>
+                  <h2>Edit Post</h2>
+                  <div className="edit">
+                    <label>
+                      Name:
+                      <input
+                        className="form-control"
+                        placeholder="Name"
+                        onChange={(evt) =>
+                          setPostToEdit({
+                            ...postToEdit,
+                            tripname: evt.target.value,
+                          })
+                        }
+                        value={postToEdit.tripname}
+                      />
+                    </label>
+                    &nbsp;
+                    <br></br>
+                    <label>
+                      Date:
+                      <input
+                        className="form-control"
+                        placeholder="Date"
+                        onChange={(evt) =>
+                          setPostToEdit({
+                            ...postToEdit,
+                            date: evt.target.value,
+                          })
+                        }
+                        value={postToEdit.date}
+                      />
+                    </label>
+                    &nbsp;
+                    <br></br>
+                    <label>
+                      Location:
+                      <input
+                        className="form-control"
+                        placeholder="Location"
+                        onChange={(evt) =>
+                          setPostToEdit({
+                            ...postToEdit,
+                            location: evt.target.value,
+                          })
+                        }
+                        value={postToEdit.location}
+                      />
+                    </label>
+                    &nbsp;
+                    <br></br>
+                    <label>
+                      Notes:
+                      <input
+                        className="form-control"
+                        placeholder="Notes"
+                        onChange={(evt) =>
+                          setPostToEdit({
+                            ...postToEdit,
+                            notes: evt.target.value,
+                          })
+                        }
+                        value={postToEdit.notes}
+                      />
+                    </label>
+                    &nbsp;
+                    <br></br>
+                    <label>
+                      Rating:
+                      <input
+                        className="form-control"
+                        placeholder="Rating"
+                        onChange={(evt) =>
+                          setPostToEdit({
+                            ...postToEdit,
+                            rating: evt.target.value,
+                          })
+                        }
+                        value={postToEdit.rating}
+                      />
+                    </label>
+                    <div></div>
+                  </div>
+                  <br></br>
+                  <button className="edit-button-card" type="submit">
+                    Save
+                  </button>
+                  <br></br>
+                  <button
+                    className="edit-button-card"
+                    onClick={() => setEditing(false)}
+                  >
+                    Cancel
+                  </button>
+                </form>
+              )}
+            </div>
           </div>
         </div>
       </div>

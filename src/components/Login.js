@@ -77,9 +77,9 @@ function Login() {
               Home
             </button>
           </Link>
-          <Link to="/Login">
+          <Link to="/Signup">
             <button className="navButton" type="button">
-              Sign in!
+              Sign up!
             </button>
           </Link>
         </div>

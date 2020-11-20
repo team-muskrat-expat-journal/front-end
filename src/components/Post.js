@@ -1,5 +1,6 @@
 import React from "react";
 // import { Link } from "react-router-dom";
+import "./Style/signUpStyles.css";
 import { useParams, useRouteMatch, Route } from "react-router-dom";
 
 import PostCard from "./PostCard";

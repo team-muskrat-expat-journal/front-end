@@ -231,7 +231,9 @@ const PostForm = (props) => {
             >
               Submit Post
             </button>
-            <Link to="/dashboard">Back</Link>
+            <Link to="/dashboard">
+              <p className="white">Back</p>
+            </Link>
           </form>
         </div>
       </div>
