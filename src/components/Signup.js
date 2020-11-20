@@ -58,7 +58,7 @@ function Signup() {
       .string()
       .required("Password is required")
       .min(6, "Password is required and must be at least 6 characters long"),
-    terms: yup.boolean(), //This is where the issue is, (check with Brian)
+    terms: yup.boolean().oneOf([true], ""), //This is where the issue is, (check with Brian)
   });
 
   useEffect(() => {
@@ -80,7 +80,7 @@ function Signup() {
 
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user_id", res.data.data.id);
-        history.push('/dashboard');
+        history.push("/dashboard");
       })
       .catch((err) => {
         console.log(err);
