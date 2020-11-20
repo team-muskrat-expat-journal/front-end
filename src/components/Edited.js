@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 const Edited = () => {
   return (
     <>
+      {/* Nav */}
       <nav>
         <div className="logo">
           <h2>Team 'Skrat Expat Journal</h2>
@@ -22,6 +23,7 @@ const Edited = () => {
           </Link>
         </div>
       </nav>
+      {/*End Nav */}
       <div>
         <div className="signup">
           <h2>

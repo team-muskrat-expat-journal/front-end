@@ -4,6 +4,7 @@ import "./Style/styleHome.css";
 function Home() {
   return (
     <>
+      {/* Nav */}
       <nav>
         <div className="logo">
           <h2>Team 'Skrat Expat Journal</h2>
@@ -21,6 +22,7 @@ function Home() {
           </Link>
         </div>
       </nav>
+      {/*End Nav */}
       <div className="main">
         <br></br>
       </div>

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 const Deleted = () => {
   return (
     <div>
+      {/* Nav */}
       <nav>
         <div className="logo">
           <h2>Team 'Skrat Expat Journal</h2>
@@ -21,6 +22,7 @@ const Deleted = () => {
           </Link>
         </div>
       </nav>
+      {/* End Nav */}
       <div className="signup">
         <h2>
           Your Post <br />

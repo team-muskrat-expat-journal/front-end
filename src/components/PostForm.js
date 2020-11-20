@@ -96,6 +96,7 @@ const PostForm = (props) => {
 
   return (
     <>
+      {/* Nav */}
       <nav>
         <div className="logo">
           <h2>Team 'Skrat Expat Journal</h2>
@@ -114,7 +115,9 @@ const PostForm = (props) => {
           </Link>
         </div>
       </nav>
+      {/* End Nav */}
       <div>
+        {/* Adding trip */}
         <h2>Add a Trip to Your Journal</h2>
         <div className="signup">
           <header>
@@ -237,7 +240,7 @@ const PostForm = (props) => {
           </form>
         </div>
       </div>
-      {/* </div> */}
+      {/* End Adding trip */}
     </>
   );
 };
