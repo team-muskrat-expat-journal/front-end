@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import * as yup from "yup";
 import styled from "styled-components";
 import { Button, FormGroup, Label } from "reactstrap";
-import "./Style/PostForm.css";
+import "./Style/signUpStyles.css";
 
 import axiosWithAuth from "../utils/axiosWithAuth";
 import { addPost } from "../actions/PostsAction";
@@ -95,8 +95,8 @@ const PostForm = (props) => {
   }, [formValues]);
 
   return (
-
     <>
+      {/* Nav */}
       <nav>
         <div className="logo">
           <h2>Team 'Skrat Expat Journal</h2>
@@ -115,17 +115,19 @@ const PostForm = (props) => {
           </Link>
         </div>
       </nav>
-      <div className="signup">
-        <div className="post-form container">
+      {/* End Nav */}
+      <div>
+        {/* Adding trip */}
+        <h2>Add a Trip to Your Journal</h2>
+        <div className="signup">
           <header>
-            <h2>Add a Trip to Your Journal</h2>
             <div className="errors">
               <div>{errors.tripname}</div>
               <div>{errors.date}</div>
               <div>{errors.imageURL}</div>
             </div>
           </header>
-          <form className="form container" onSubmit={onSubmit}>
+          <form onSubmit={onSubmit}>
             <label>
               This is a:
               <select
@@ -143,8 +145,9 @@ const PostForm = (props) => {
             </label>
             <br></br>
             <label>
-              Name:&nbsp;
+              Name:
               <input
+                placeholder="Name of trip"
                 className="form-control"
                 type="text"
                 name="tripname"
@@ -155,8 +158,9 @@ const PostForm = (props) => {
             </label>
             <br></br>
             <label>
-              Date:&nbsp;
+              Date:
               <input
+                placeholder="Date"
                 className="form-control"
                 type="text"
                 name="date"
@@ -167,8 +171,9 @@ const PostForm = (props) => {
             </label>
             <br></br>
             <label>
-              Location:&nbsp;
+              Location:
               <input
+                placeholder="Location"
                 className="form-control"
                 type="text"
                 name="location"
@@ -179,8 +184,9 @@ const PostForm = (props) => {
             </label>
             <br></br>
             <label>
-              ImageURL:&nbsp;
+              ImageURL:
               <input
+                placeholder="Image"
                 className="form-control"
                 type="text"
                 name="imageURL"
@@ -191,8 +197,9 @@ const PostForm = (props) => {
             </label>
             <br></br>
             <label>
-              Notes:&nbsp;
+              Notes:
               <input
+                placeholder="Notes on your awesome trip!"
                 className="form-control"
                 type="text"
                 name="notes"
@@ -203,7 +210,7 @@ const PostForm = (props) => {
             </label>
             <br></br>
             <label>
-              Rating:&nbsp;
+              Rating:
               <select
                 className="form-control"
                 name="rating"
@@ -220,32 +227,24 @@ const PostForm = (props) => {
               <div style={{ color: "red" }}>{errors.rating}</div>
             </label>
             <br></br>
-            <button disabled={disabled} onSubmit={onSubmit}>
+            <button
+              className="form-control"
+              disabled={disabled}
+              onSubmit={onSubmit}
+            >
               Submit Post
             </button>
-            <Link to="/dashboard">Back</Link>
+            <Link to="/dashboard">
+              <p className="white">Back</p>
+            </Link>
           </form>
         </div>
       </div>
+      {/* End Adding trip */}
     </>
-
   );
-}
-const StyledForm = styled.form`
-  width: 90%;
-  font-size: 2.5rem;
-  label {
-    width: 60%;
-    dispaly: flex;
-  }
-  input {
-    width: 90%;
-    align-content: end;
-  }
-  button {
-    margin: 0 40% 3% 40%;
-  }
-`;
+};
+
 const mapStateToProps = (state) => {
   return {
     posts: state.posts,

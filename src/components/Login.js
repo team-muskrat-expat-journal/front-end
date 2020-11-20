@@ -67,6 +67,7 @@ function Login() {
   };
   return (
     <div>
+      {/* Nav */}
       <nav>
         <div className="logo">
           <h2>Team 'Skrat Expat Journal</h2>
@@ -77,15 +78,17 @@ function Login() {
               Home
             </button>
           </Link>
-          <Link to="/Login">
+          <Link to="/Signup">
             <button className="navButton" type="button">
-              Sign in!
+              Sign up!
             </button>
           </Link>
         </div>
       </nav>
+      {/*End Nav */}
       <h2 className="login">Login</h2>
       <br></br>
+      {/* Login */}
       <div className="signup">
         <form onSubmit={submit}>
           <label>
@@ -117,6 +120,8 @@ function Login() {
           <button className="form-control" disabled={disabled}>
             Submit
           </button>
+          {/*End Login */}
+
           <br></br>
           <Link to="/Signup">
             <button className="form-control">New User?</button>
